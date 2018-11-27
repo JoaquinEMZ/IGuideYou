@@ -35,6 +35,7 @@
         android:enabled="false"
         android:onClick="searchPrd"/>
     <Button
+        android:id="@+id/notificar_reloj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Notificacion Reloj"
