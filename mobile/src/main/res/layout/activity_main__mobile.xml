@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity_Mobile">
+    tools:context=".MainActivity_Mobile"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="335dp"
-        android:layout_height="133dp"
-        android:text="Descripcion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054" />
-
-    <EditText
-        android:id="@+id/editSearch"
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:text="Objetito/guia de la aplicacion"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="172dp"
-        android:hint="¿Qué estas buscando?"/>
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="¿Que desea buscar?"
+            android:id="@+id/etProduct"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_location_search"
+            android:onClick="retrieveDoc"
+            android:id="@+id/btnSearch"/>
+
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="221dp"
-        android:text="Buscar producto"
-        android:id="@+id/btnSearch"
+        android:text="Buscar Producto"
+        android:enabled="false"
         android:onClick="searchPrd"/>
+    
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtViewShop"/>
+    </android.support.v4.widget.NestedScrollView>
 
-</RelativeLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>
