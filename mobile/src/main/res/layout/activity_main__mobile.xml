@@ -34,7 +34,14 @@
         android:text="Buscar Producto"
         android:enabled="false"
         android:onClick="searchPrd"/>
-    
+    <Button
+        android:id="@+id/notificar_reloj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notificacion Reloj"
+        android:onClick="searchPrdReloj"/>
+
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
