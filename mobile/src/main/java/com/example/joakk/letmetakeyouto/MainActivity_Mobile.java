@@ -1,7 +1,16 @@
 package com.example.joakk.letmetakeyouto;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,7 +41,7 @@ import javax.annotation.Nullable;
 
 public class MainActivity_Mobile extends AppCompatActivity {
 
-
+    String canal = "my_channel_01";
 
     private EditText mEditProd;
     private TextView mTxtViewShop;
@@ -124,8 +133,6 @@ public class MainActivity_Mobile extends AppCompatActivity {
                             tienda.setDIRECCION(documentSnapshot.getString("Direccion"));
                             tienda.setCOORDENADAS(documentSnapshot.getGeoPoint("Coordenadas"));
                             tienda.setTIPO_TIENDA(documentSnapshot.getString("Tipo_tienda"));
-                            tienda.setPRODUCTOS(documentSnapshot.);
-
 
 
                             String docId = tienda.getDOCUMENTID();
@@ -143,6 +150,65 @@ public class MainActivity_Mobile extends AppCompatActivity {
                         mTxtViewShop.setText(data);
                     }
                 });
+    }
+
+    public void mostrarNotificacion(int id, Notification notificacion) {
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "my channel";
+            String description = "channel description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(canal, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            manager.createNotificationChannel(channel);
+        }
+
+        mNotificationManager.notify(id, notificacion);
+
+    }
+
+    public void searchPrdReloj(View view) {
+        int notificationId = 3;
+
+        Intent actionIntent = new Intent(this, MainActivity_Mobile.class);
+        PendingIntent actionPendingIntent =
+                PendingIntent.getActivity(this, 0, actionIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+        Uri geoUri = Uri.parse("geo:0,0?q=" + Uri.encode("Valparaíso"));
+        mapIntent.setData(geoUri);
+        PendingIntent mapPendingIntent =
+                PendingIntent.getActivity(this, 0, mapIntent, 0);
+
+        NotificationCompat.Action action =
+                new NotificationCompat.Action.Builder(R.drawable.ic_map_white,"Test", actionPendingIntent)
+                        .build();
+
+
+
+// Build the notification and add the action via WearableExtender
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, canal)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Notificación con Mapa")
+                        .setContentText("Esta es una notificación con Mapa de prueba")
+                        .setSubText("Toque la notificación para abrir una actividad de prueba o " +
+                                "toque el botón VER MAPA para abrir Google Maps")
+                        .setContentIntent(actionPendingIntent)
+                        // En el teléfono aparecerá un botón en la notificación y en el reloj
+                        // aparecerá un botón grande al presionar la notificación
+                        //.addAction(R.drawable.ic_map_white, "Ver mapa", mapPendingIntent)
+                        .extend(new NotificationCompat.WearableExtender().addAction(action));
+
+        mostrarNotificacion(notificationId, notificationBuilder.build());
+
+  
+
     }
 }
 
