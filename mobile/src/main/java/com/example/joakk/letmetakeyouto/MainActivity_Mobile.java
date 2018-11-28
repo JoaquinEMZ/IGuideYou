@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -38,6 +39,7 @@ import javax.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.NotificationCompat.WearableExtender;
+import android.widget.Toast;
 
 public class MainActivity_Mobile extends AppCompatActivity {
 
@@ -46,6 +48,7 @@ public class MainActivity_Mobile extends AppCompatActivity {
     private TextView mTxtViewShop;
     private Button mBtnSearch;
     private Button notificar;
+    public String data = "";
     private static final  String FIRE_LOG = "Fire_log";
     final FirebaseFirestore  db = FirebaseFirestore.getInstance();
     private CollectionReference shopReferences = db.collection("tienda");
@@ -58,7 +61,6 @@ public class MainActivity_Mobile extends AppCompatActivity {
         mTxtViewShop = findViewById(R.id.txtViewShop);
         mEditProd = findViewById(R.id.etProduct);
         mBtnSearch = findViewById(R.id.btnSearch);
-
 
         final int notificationId = 1;
         // Build intent for notification content
@@ -80,6 +82,12 @@ public class MainActivity_Mobile extends AppCompatActivity {
                 mostrarNotificacion(notificationId, notificationBuilder.build());
             }
         });
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchPrd(v);
+            }
+        });
     }
 
     @Override
@@ -94,8 +102,45 @@ public class MainActivity_Mobile extends AppCompatActivity {
 
 
     //VERSION 1 RETIREVEDATA FUNCIONA SIN MOSTRAR EL ARRAY
-    public void retrieveDoc (View v){
-        mBtnSearch.setEnabled(true);
+    public void searchProduct (EditText editText){
+
+        if (editText.getText().toString().trim() == "") {
+            Toast.makeText(getApplicationContext(),"Ingrese lo que desee buscar", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            shopReferences.whereArrayContains("Producto", editText.getText().toString()).get().addOnSuccessListener(
+                    new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        }
+                    }
+            ).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
+
+        shopReferences.whereArrayContains("Producto", "Fideo").get().addOnCompleteListener(
+                new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                            data += "Tienda: " + queryDocumentSnapshot.get("Nombre_tienda") + "\n" +
+                            "Coordendas: " +  queryDocumentSnapshot.get("Coordenada") +"\n" ;
+                        }
+                        Toast.makeText(getApplicationContext(),data, Toast.LENGTH_SHORT).show();
+                        mTxtViewShop.setText(data);
+                    }
+                }
+        );
+
+    }
+
+    public void searchShop(EditText editText){
 
     }
 
