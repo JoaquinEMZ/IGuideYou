@@ -40,7 +40,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.NotificationCompat.WearableExtender;
 import android.widget.Toast;
-
 import org.w3c.dom.Document;
 
 public class MainActivity_Mobile extends AppCompatActivity {
@@ -50,6 +49,9 @@ public class MainActivity_Mobile extends AppCompatActivity {
     private TextView mTxtViewShop;
     public Button mBtnProd;
     private Button notificar;
+
+    public String data = "";
+
     public Button mBtnShop;
     public GeoPoint geoPoint;
     public double[] lista_puntos;
@@ -67,6 +69,9 @@ public class MainActivity_Mobile extends AppCompatActivity {
         mBtnProd = findViewById(R.id.search_product);
         mBtnShop = findViewById(R.id.search_shop);
 
+
+        final int notificationId = 1;
+
         mBtnProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +86,7 @@ public class MainActivity_Mobile extends AppCompatActivity {
         });
 
         /*final int notificationId = 1;
+
         // Build intent for notification content
         Intent viewIntent = new Intent(this, MainActivity_Mobile.class);
         PendingIntent viewPendingIntent = PendingIntent.getActivity(this, 0, viewIntent, 0);
@@ -99,7 +105,17 @@ public class MainActivity_Mobile extends AppCompatActivity {
             public void onClick(View v) {
                 mostrarNotificacion(notificationId, notificationBuilder.build());
             }
+
+        });
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchPrd(v);
+            }
+        });
+
         });*/
+
     }
 
     @Override
@@ -109,6 +125,44 @@ public class MainActivity_Mobile extends AppCompatActivity {
 
 
     //VERSION 1 RETIREVEDATA FUNCIONA SIN MOSTRAR EL ARRAY
+
+    public void searchProduct (EditText editText){
+
+        if (editText.getText().toString().trim() == "") {
+            Toast.makeText(getApplicationContext(),"Ingrese lo que desee buscar", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            shopReferences.whereArrayContains("Producto", editText.getText().toString()).get().addOnCompleteListener(
+                    new OnCompleteListener<QuerySnapshot>(){
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        }
+                    }
+            ).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
+
+        shopReferences.whereArrayContains("Producto", "Fideo").get().addOnCompleteListener(
+                new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                            data += "Tienda: " + queryDocumentSnapshot.get("Nombre_tienda") + "\n" +
+                            "Coordendas: " +  queryDocumentSnapshot.get("Coordenada") +"\n" ;
+                        }
+                        Toast.makeText(getApplicationContext(),data, Toast.LENGTH_SHORT).show();
+                        mTxtViewShop.setText(data);
+                    }
+                }
+        );
+
+    }
 
     public void mostrarNotificacion(int id, Notification notificacion) {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);

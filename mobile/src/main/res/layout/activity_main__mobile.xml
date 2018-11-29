@@ -21,33 +21,39 @@
             android:layout_height="wrap_content"
             android:hint="¿Que deseas buscar?"
             android:id="@+id/etProduct"/>
-        <ImageButton
+
+
+        <Button
+            android:id="@+id/btnSearch"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_search_button"
-            android:id="@+id/buttton_search"/>
+            android:background="@drawable/ic_search_button" />
 
     </LinearLayout>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Buscar Producto"
-        android:enabled="true"
-        android:focusable="false"
-        android:id="@+id/search_product" />
+        android:onClick="searchPrd"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/buscar_tienda"
-        android:id="@+id/search_shop"
-        android:focusable="false"/>
-
+        android:text="@string/Buscar_tienda"
+        android:onClick=""/>
     <Button
+        android:id="@+id/notificar_reloj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Como usar la aplicación"
-        android:onClick="guiaapk"/>
+        android:text="Notificacion Reloj" />
 
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtViewShop"/>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

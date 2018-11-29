@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="app_name">LetMeTakeYouTo</string>
+    <string name="Buscar_tienda">Buscar Tienda</string>
+
     <string name="app_name">Let Me Take You To</string>
     <string name="buscar_tienda">Buscar Tienda</string>
     <string name="descrip">Let Me Take You to te permite encontrar tanto productos que desees como también tipos o categorías de tiendas.
@@ -15,4 +19,5 @@
                         tomate, limón, choclo, zanahoria, cebollín, guisante, coliflor, zapallo, brócoli, producto de limpieza, detergente, alcohol isopropílico, pañal, papa, alcachofa, palta y pepino. </string>
     <string name="Lim8">6. La aplicación es muy específica, por lo que todos los productos o tipos de tiendas que busque tienen que partir con mayúscula. Si la palabra tiene más de una palabra, la primera letra en mayúscula, y el resto en minúscula.
                         También tiene que ir bien escrita, con la tilde correspondiente, si es necesario.</string>
+
 </resources>
