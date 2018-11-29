@@ -57,7 +57,8 @@
 
         <activity
             android:name=".MapsActivity_Mobile"
-            android:label="Tiendas disponibles"></activity>
+            android:label="Tiendas disponibles" />
+        <activity android:name=".GuiaApk"></activity>
     </application>
 
 </manifest>

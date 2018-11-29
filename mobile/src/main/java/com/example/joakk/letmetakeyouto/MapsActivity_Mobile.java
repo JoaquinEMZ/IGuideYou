@@ -1,6 +1,7 @@
 package com.example.joakk.letmetakeyouto;
 
 import android.Manifest;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -9,6 +10,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+
+import android.content.pm.PackageManager;
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 import android.support.v7.widget.Toolbar;
+
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -32,13 +37,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import java.util.ArrayList;
 
 public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        private CollectionReference shopReferences = db.collection("tienda");
-        private Marker marker;
-        private Context mContext=MapsActivity_Mobile.this;
+    private GoogleMap mMap;
+    private Marker marker;
+    private Context mContext=MapsActivity_Mobile.this;
+
+    public ArrayList<String> nombres;
+    public double[] puntos;
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
@@ -49,6 +58,9 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_maps__mobile);
+            Bundle bundle = getIntent().getExtras();
+            puntos = bundle.getDoubleArray("lista_puntos");
+            nombres = bundle.getStringArrayList("nombres_tiendas");
             /*Toolbar tb = findViewById(R.id.toolbar);
             tb.setSubtitle("Dejame Guiarte A");*/
 
@@ -91,6 +103,7 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
 
 
         }
+  
     private void enableMyLocationIfPermitted() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -124,6 +137,7 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         LatLng redmond = new LatLng(-33.013368, -71.541475);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
     }
+  
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
         switch (requestCode) {
@@ -138,36 +152,6 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
             }
 
         }
-    }
-
-    /*
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        AlertDialog.Builder msj1 = new AlertDialog.Builder(MapsActivity_Mobile.this);
-        msj1.setTitle("Seleccione modo para indicar");
-        msj1.setMessage("Escoga entre WearOS o Android Auto para ir al punto indicado");
-        msj1.setCancelable(false);
-        msj1.setPositiveButton("WearOS", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //PONER METODO PARA SELECCIONAR WEAROS
-            }
-        });
-        msj1.setPositiveButton("Android Auto", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //PONER METODO PARA SELECCIONAR ANDROID AUTO
-            }
-        });
-        return false;
-    }*/
-
-
-    public void createMarker(){
-        LatLng ciudad = new LatLng(-33.010629,-71.542768);
-
-        mMap.addMarker(new MarkerOptions().position(ciudad).title("Prueba 1").snippet("precioname :3"));
     }
 
     @Override
@@ -186,5 +170,18 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void createMarker(GoogleMap googleMap){
+        mMap = googleMap;
+        int contador = 0;
+
+        for(int i =0; i < nombres.size(); i++){
+            LatLng position = new LatLng(puntos[contador],puntos[contador+1]);
+            mMap.addMarker(new MarkerOptions().position(position).title(nombres.get(i)));
+            contador +=2;
+        }
+        LatLng latLng = new LatLng(-33.011844, -71.549230);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 }
