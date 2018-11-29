@@ -46,7 +46,7 @@ import java.util.ArrayList;
 
 public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
 
-<<<<<<< Updated upstream
+
     private GoogleMap mMap;
     private Marker marker;
     private Context mContext=MapsActivity_Mobile.this;
@@ -54,14 +54,8 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
     public ArrayList<String> nombres;
     public double[] puntos;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
-=======
-
-        String canal = "my_channel_01";
->>>>>>> Stashed changes
-
-        private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-        private GoogleMap mMap;
+    String canal = "my_channel_01";
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 
         @Override
@@ -85,7 +79,7 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         public void onMapReady(GoogleMap map) {
             mMap = map;
             enableMyLocationIfPermitted();
-            createMarker();
+            createMarker(mMap);
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE); //This class provides access to the system location services. These services allow applications to obtain periodic updates of the device's geographical location
             Criteria criteria = new Criteria(); //A class indicating the application criteria for selecting a location provider.
             String provider = locationManager.getBestProvider(criteria, true); //Providers may be ordered according to accuracy, power usage, ability to report altitude, speed, bearing, and monetary cost.
@@ -183,19 +177,20 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         alert.show();
     }
 
-<<<<<<< Updated upstream
-    public void createMarker(GoogleMap googleMap){
+
+    public void createMarker(GoogleMap googleMap) {
         mMap = googleMap;
         int contador = 0;
 
-        for(int i =0; i < nombres.size(); i++){
-            LatLng position = new LatLng(puntos[contador],puntos[contador+1]);
+        for (int i = 0; i < nombres.size(); i++) {
+            LatLng position = new LatLng(puntos[contador], puntos[contador + 1]);
             mMap.addMarker(new MarkerOptions().position(position).title(nombres.get(i)));
-            contador +=2;
+            contador += 2;
         }
         LatLng latLng = new LatLng(-33.011844, -71.549230);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-=======
+    }
+
     public void mostrarNotificacion(int id, Notification notificacion) {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
 
@@ -212,7 +207,5 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         }
 
         mNotificationManager.notify(id, notificacion);
-
->>>>>>> Stashed changes
     }
 }
