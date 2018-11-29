@@ -126,63 +126,6 @@ public class MainActivity_Mobile extends AppCompatActivity {
 
     //VERSION 1 RETIREVEDATA FUNCIONA SIN MOSTRAR EL ARRAY
 
-    public void searchProduct (EditText editText){
-
-        if (editText.getText().toString().trim() == "") {
-            Toast.makeText(getApplicationContext(),"Ingrese lo que desee buscar", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            shopReferences.whereArrayContains("Producto", editText.getText().toString()).get().addOnCompleteListener(
-                    new OnCompleteListener<QuerySnapshot>(){
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        }
-                    }
-            ).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                }
-            });
-        }
-
-        shopReferences.whereArrayContains("Producto", "Fideo").get().addOnCompleteListener(
-                new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                            data += "Tienda: " + queryDocumentSnapshot.get("Nombre_tienda") + "\n" +
-                            "Coordendas: " +  queryDocumentSnapshot.get("Coordenada") +"\n" ;
-                        }
-                        Toast.makeText(getApplicationContext(),data, Toast.LENGTH_SHORT).show();
-                        mTxtViewShop.setText(data);
-                    }
-                }
-        );
-
-    }
-
-    public void mostrarNotificacion(int id, Notification notificacion) {
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String name = "my channel";
-            String description = "channel description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(canal, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            manager.createNotificationChannel(channel);
-        }
-
-        mNotificationManager.notify(id, notificacion);
-
-    }
-
     public void searchShop() {
         lista_puntos = new double[24];
         nombres_tiendas = new ArrayList<>();

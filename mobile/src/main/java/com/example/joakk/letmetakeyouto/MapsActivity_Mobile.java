@@ -4,11 +4,15 @@ import android.Manifest;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import android.content.pm.PackageManager;
@@ -16,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +46,7 @@ import java.util.ArrayList;
 
 public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
 
+
     private GoogleMap mMap;
     private Marker marker;
     private Context mContext=MapsActivity_Mobile.this;
@@ -48,10 +54,8 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
     public ArrayList<String> nombres;
     public double[] puntos;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-        private GoogleMap mMap;
+    String canal = "my_channel_01";
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 
         @Override
@@ -75,7 +79,7 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         public void onMapReady(GoogleMap map) {
             mMap = map;
             enableMyLocationIfPermitted();
-            createMarker();
+            createMarker(mMap);
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE); //This class provides access to the system location services. These services allow applications to obtain periodic updates of the device's geographical location
             Criteria criteria = new Criteria(); //A class indicating the application criteria for selecting a location provider.
             String provider = locationManager.getBestProvider(criteria, true); //Providers may be ordered according to accuracy, power usage, ability to report altitude, speed, bearing, and monetary cost.
@@ -161,6 +165,7 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(MapsActivity_Mobile.this, "Acepto", Toast.LENGTH_SHORT).show();
+
             }
         }).setNegativeButton("Android Auto", new DialogInterface.OnClickListener() {
             @Override
@@ -172,16 +177,35 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
         alert.show();
     }
 
-    public void createMarker(GoogleMap googleMap){
+
+    public void createMarker(GoogleMap googleMap) {
         mMap = googleMap;
         int contador = 0;
 
-        for(int i =0; i < nombres.size(); i++){
-            LatLng position = new LatLng(puntos[contador],puntos[contador+1]);
+        for (int i = 0; i < nombres.size(); i++) {
+            LatLng position = new LatLng(puntos[contador], puntos[contador + 1]);
             mMap.addMarker(new MarkerOptions().position(position).title(nombres.get(i)));
-            contador +=2;
+            contador += 2;
         }
         LatLng latLng = new LatLng(-33.011844, -71.549230);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
+    public void mostrarNotificacion(int id, Notification notificacion) {
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "my channel";
+            String description = "channel description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(canal, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            manager.createNotificationChannel(channel);
+        }
+
+        mNotificationManager.notify(id, notificacion);
     }
 }

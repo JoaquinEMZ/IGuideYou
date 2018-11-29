@@ -34,12 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Buscar Producto"
-        android:onClick="searchPrd"/>
+        android:id="@+id/search_product"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Buscar_tienda"
-        android:onClick=""/>
+        android:id="@+id/search_shop"/>
     <Button
         android:id="@+id/notificar_reloj"
         android:layout_width="match_parent"
