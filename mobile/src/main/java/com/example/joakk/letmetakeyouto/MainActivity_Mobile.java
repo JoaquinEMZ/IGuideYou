@@ -164,24 +164,7 @@ public class MainActivity_Mobile extends AppCompatActivity {
 
     }
 
-    public void mostrarNotificacion(int id, Notification notificacion) {
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String name = "my channel";
-            String description = "channel description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(canal, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            manager.createNotificationChannel(channel);
-        }
-
-        mNotificationManager.notify(id, notificacion);
-
-    }
 
     public void searchShop() {
         lista_puntos = new double[24];
