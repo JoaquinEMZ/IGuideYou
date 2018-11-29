@@ -51,11 +51,12 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDabq9GUEA-TQZFHR_OUcHzUCm6PVIh0F4" />
+            android:value="AIzaSyC-n4h9Qa2qqw8y4MhfaQXeoEvs4yxGMlM" />
 
         <activity
             android:name=".MapsActivity_Mobile"
-            android:label="Tiendas disponibles"></activity>
+            android:label="Tiendas disponibles" />
+        <activity android:name=".GuiaApk"></activity>
     </application>
 
 </manifest>

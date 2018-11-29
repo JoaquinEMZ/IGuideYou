@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity_Mobile"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
 
   <TextView
       android:layout_width="match_parent"
       android:layout_height="200dp"
-      android:text="Objetito/guia de la aplicacion"/>
+      android:text="@string/descrip"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,14 +19,13 @@
         <EditText
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="¿Que desea buscar?"
+            android:hint="¿Que deseas buscar?"
             android:id="@+id/etProduct"/>
-        <Button
+        <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_location_search"
-            android:onClick="retrieveDoc"
-            android:id="@+id/btnSearch"/>
+            android:background="@drawable/ic_search_button"
+            android:id="@+id/buttton_search"/>
 
     </LinearLayout>
 
@@ -32,32 +33,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Buscar Producto"
-        android:enabled="false"
-        android:onClick="searchPrd"/>
+        android:enabled="true"
+        android:focusable="false"
+        android:id="@+id/search_product" />
     <Button
-        android:id="@+id/notificar_reloj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notificacion Reloj"
-        android:onClick="searchPrdReloj"/>
+        android:text="@string/buscar_tienda"
+        android:id="@+id/search_shop"
+        android:focusable="false"/>
 
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtViewShop"/>
-    </android.support.v4.widget.NestedScrollView>
-
-
-
-
-
-
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Como usar la aplicación"
+        android:onClick="guiaapk"/>
 
 
 </LinearLayout>
