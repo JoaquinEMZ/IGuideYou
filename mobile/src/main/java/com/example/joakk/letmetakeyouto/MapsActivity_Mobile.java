@@ -1,7 +1,11 @@
 package com.example.joakk.letmetakeyouto;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,14 +15,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public ArrayList<String> nombres;
+    public double[] puntos;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getIntent().getExtras();
+        puntos = bundle.getDoubleArray("lista_puntos");
+        nombres = bundle.getStringArrayList("nombres_tiendas");
         setContentView(R.layout.activity_maps__mobile);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -39,10 +51,22 @@ public class MapsActivity_Mobile extends FragmentActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        createMarker(mMap);
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+    public void createMarker(GoogleMap googleMap){
+        mMap = googleMap;
+        int contador = 0;
+
+        for(int i =0; i < nombres.size(); i++){
+            LatLng position = new LatLng(puntos[contador],puntos[contador+1]);
+            mMap.addMarker(new MarkerOptions().position(position).title(nombres.get(i)));
+            contador +=2;
+        }
+        LatLng latLng = new LatLng(-33.011844, -71.549230);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
     }
 }

@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">LetMeTakeYouTo</string>
+    <string name="app_name">Let Me Take You To</string>
+    <string name="buscar_tienda">Buscar Tienda</string>
+    <string name="descrip">Let Me Take You to te permite encontrar tanto productos que desees como también tipos o categorías de tiendas.
+                            Por ejemplo, usted desea una panadería para comprar pasteles o pan. Al escribir "Panadería" en el campo y presionar "BUSCAR TIENDA",
+                            se mostrará todas las tiendas de esa categoría, si es que existe en la base de datos. Al igual que "BUSCAR PRODUCTO", solo tiene que ingresar 1 producto que desee comprar.
+                            Si quiere saber más de sobre cómo usar la aplicación oprima el botón "COMO USAR LA APLICACIÓN"</string>
+    <string name="Lim1">Let Me Take You To cuenta con algunas limitaciones que hay que tener en cuenta.</string>
+    <string name="Lim2">1. Al ingresar algún producto o tienda, se tiene que seleccionar el botón que tiene relación con el texto ingresado.</string>
+    <string name="Lim3">~Por ejemplo, si ingresas alguno de los tipos de tiendas que existen en la base de datos (Panadería, Quesería, Verdulería o Almacén), obligadamente tienes que presionar el botón BUSCAR TIENDA, de lo contario si presionas BUSCAR PRODUCTO, no se mostrará nada en el mapa.</string>
+    <string name="Lim4">2. Solo se puede buscar 1 producto o 1 tienda a la vez. Si ingresas más de un producto o tienda, se considera como un solo texto y no mostrará nada por pantalla.</string>
+    <string name="Lim5">3. No se puede buscar las tiendas por su nombre, solo productos o tipos de tienda.</string>
+    <string name="Lim6">4. Existe una limitada lista de productos o tipo de tienda, por lo que, si quiere buscar un producto o un tipo de tienda y este no aparece en el mapa, es porque no está en la base de datos.</string>
+    <string name="Lim7">5. La aplicación cuenta con los siguientes productos: pan, pastel, carne, pollo, huevo, fruto seco, lácteo, carbón, atún, fideo, queso, mantequilla, azúcar, pizza, confort, toallita, arroz, lechuga,
+                        tomate, limón, choclo, zanahoria, cebollín, guisante, coliflor, zapallo, brócoli, producto de limpieza, detergente, alcohol isopropílico, pañal, papa, alcachofa, palta y pepino. </string>
+    <string name="Lim8">6. La aplicación es muy específica, por lo que todos los productos o tipos de tiendas que busque tienen que partir con mayúscula. Si la palabra tiene más de una palabra, la primera letra en mayúscula, y el resto en minúscula.
+                        También tiene que ir bien escrita, con la tilde correspondiente, si es necesario.</string>
 </resources>
