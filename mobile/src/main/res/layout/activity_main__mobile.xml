@@ -20,7 +20,7 @@
             android:hint="¿Que desea buscar?"
             android:id="@+id/etProduct"/>
 
-        <android.support.v7.widget.AppCompatImageButton
+        <Button
             android:id="@+id/btnSearch"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Buscar Producto"
-        android:enabled="true"
         android:onClick="searchPrd"/>
     <Button
         android:layout_width="match_parent"

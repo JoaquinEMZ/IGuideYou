@@ -17,6 +17,10 @@ public class Tienda {
     public Tienda() {
 
     }
+    public Tienda (String nombre, GeoPoint point){
+    this.NOMBRE_TIENDA = nombre;
+    this.COORDENADAS = point;
+    }
 
     public Tienda(String nombre, GeoPoint coords, String direccion, String tipo_tienda, String docid, List<String> products) {
         this.NOMBRE_TIENDA = nombre;

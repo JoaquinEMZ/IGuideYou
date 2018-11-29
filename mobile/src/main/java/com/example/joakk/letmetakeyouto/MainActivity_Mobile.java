@@ -108,10 +108,10 @@ public class MainActivity_Mobile extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Ingrese lo que desee buscar", Toast.LENGTH_SHORT).show();
         }
         else{
-            shopReferences.whereArrayContains("Producto", editText.getText().toString()).get().addOnSuccessListener(
-                    new OnSuccessListener<QuerySnapshot>() {
+            shopReferences.whereArrayContains("Producto", editText.getText().toString()).get().addOnCompleteListener(
+                    new OnCompleteListener<QuerySnapshot>(){
                         @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                         }
                     }
@@ -139,10 +139,10 @@ public class MainActivity_Mobile extends AppCompatActivity {
         );
 
     }
-
     public void searchShop(EditText editText){
 
     }
+
 
     public void mostrarNotificacion(int id, Notification notificacion) {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
